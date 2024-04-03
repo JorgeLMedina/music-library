@@ -169,23 +169,36 @@ const addPlaylist = function (name) {
 // where the name, artist or album contains the query string (case insensitive)
 // tip: use "string".search("tri") 
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/search
-// t01: Code Monkey by Jonathan Coulton (Thing a Week Three)
 const printSearchResults = function (query) {
+       const keyArr = [];
        for (const key in library.tracks) {
               const keyQuery = library.tracks[key];
-              if (Object.values(keyQuery).includes(query)) {
-                     console.log(`${keyQuery}: ${keyQuery.name} by ${keyQuery.artist} (${keyQuery.album})`);
+              const newArr = Object.values(keyQuery).filter(value => {
+                     return value.search(query) !== -1;
+              });
+              if (newArr.length !== 0) {
+                     keyArr.push(key);
               }
+              // if (Object.values(keyQuery).includes(query)) {
+              //        console.log(`${key}: ${keyQuery.name} by ${keyQuery.artist} (${keyQuery.album})`);
+              // }
        }
+       for (const song of keyArr) {
+              const keyQuery = library.tracks[song];
+              console.log(`${song}: ${keyQuery.name} by ${keyQuery.artist} (${keyQuery.album})`);
+       }
+       // console.log(keyArr);
 
 };
+// console.log(`test 1
 
-// console.log(printSearchResults("View"));
-// console.log(printSearchResults("Co"));
-// console.log(printSearchResults("Three"));
+// -----------------------------`)
+// printSearchResults("View");
+// console.log(`test 2
 
-/////////////////
-// TEST 
-/////////////////
+// -----------------------------`)
+// printSearchResults("Co");
+// console.log(`test 1
 
-// module.exports = { library, printPlaylists };
+// -----------------------------`)
+// printSearchResults("Three");
